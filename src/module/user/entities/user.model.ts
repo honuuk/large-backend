@@ -1,4 +1,5 @@
 import { IModel } from 'src/interfaces/model';
+import { Post } from 'src/module/post/entities/post.model';
 import { IUser } from '../types/user';
 
 export class User implements IModel, IUser {
@@ -8,12 +9,16 @@ export class User implements IModel, IUser {
   private _password: string;
   private _salt: string;
 
-  constructor({ id, username, name, password, salt }: IUser) {
+  private _posts?: Post[];
+
+  constructor({ id, username, name, password, salt, posts }: IUser) {
     this._id = id;
     this._username = username;
     this._name = name;
     this._password = password;
     this._salt = salt;
+
+    this._posts = posts;
   }
 
   public get id(): number {
@@ -54,6 +59,14 @@ export class User implements IModel, IUser {
 
   public set salt(salt: string) {
     this._salt = salt;
+  }
+
+  public get posts(): Post[] | undefined {
+    return this._posts;
+  }
+
+  public set posts(posts: Post[] | undefined) {
+    this._posts = posts;
   }
 
   toJSON() {
