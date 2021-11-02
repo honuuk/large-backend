@@ -4,13 +4,15 @@ import { IPost } from '../types/post';
 
 export class Post implements IModel, IPost {
   private _id: number;
+  private _title: string;
   private _content: string;
   private _userId: number;
 
   private _user?: User;
 
-  constructor({ id, content, userId, user }: IPost) {
+  constructor({ id, title, content, userId, user }: IPost) {
     this._id = id;
+    this._title = title;
     this._content = content;
     this._userId = userId;
 
@@ -23,6 +25,14 @@ export class Post implements IModel, IPost {
 
   public set id(id: number) {
     this._id = id;
+  }
+
+  public get title(): string {
+    return this._title;
+  }
+
+  public set title(title: string) {
+    this._title = title;
   }
 
   public get content(): string {
@@ -49,5 +59,13 @@ export class Post implements IModel, IPost {
     this._user = user;
   }
 
-  toJSON() {}
+  toJSON() {
+    return {
+      id: this.id,
+      title: this.title,
+      content: this.content,
+      userId: this.userId,
+      user: this.user,
+    };
+  }
 }

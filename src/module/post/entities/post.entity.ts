@@ -8,6 +8,9 @@ import { Post } from './post.model';
 @Entity({ name: 'posts' })
 export class PostEntity extends BaseEntity implements IEntity<Post> {
   @Column()
+  title: string;
+
+  @Column()
   content: string;
 
   @Column()
