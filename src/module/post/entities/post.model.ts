@@ -1,4 +1,5 @@
 import { IModel } from 'src/interfaces/model';
+import { Tag } from 'src/module/tag/entities/tag.model';
 import { User } from 'src/module/user/entities/user.model';
 import { IPost } from '../types/post';
 
@@ -9,14 +10,16 @@ export class Post implements IModel, IPost {
   private _userId: number;
 
   private _user?: User;
+  private _tag?: Tag;
 
-  constructor({ id, title, content, userId, user }: IPost) {
+  constructor({ id, title, content, userId, user, tag }: IPost) {
     this._id = id;
     this._title = title;
     this._content = content;
     this._userId = userId;
 
     this._user = user;
+    this._tag = tag;
   }
 
   public get id(): number {
@@ -59,6 +62,14 @@ export class Post implements IModel, IPost {
     this._user = user;
   }
 
+  public get tag(): Tag | undefined {
+    return this._tag;
+  }
+
+  public set tag(tag: Tag | undefined) {
+    this._tag = tag;
+  }
+
   toJSON() {
     return {
       id: this.id,
@@ -66,6 +77,7 @@ export class Post implements IModel, IPost {
       content: this.content,
       userId: this.userId,
       user: this.user,
+      tag: this.tag,
     };
   }
 }
