@@ -1,4 +1,4 @@
-import { Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Get, Post, Body, Param, Delete, ParseIntPipe, Put } from '@nestjs/common';
 import { TagService } from './tag.service';
 import { CreateTagDto } from './dto/create-tag.dto';
 import { UpdateTagDto } from './dto/update-tag.dto';
@@ -15,21 +15,21 @@ export class TagController {
 
   @Get()
   findAll() {
-    return this.tagService.findAll();
+    return this.tagService.getAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.tagService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.tagService.getById(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTagDto: UpdateTagDto) {
-    return this.tagService.update(+id, updateTagDto);
+  @Put(':id')
+  update(@Param('id', ParseIntPipe) id: number, @Body() updateTagDto: UpdateTagDto) {
+    return this.tagService.update(id, updateTagDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.tagService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.tagService.delete(id);
   }
 }

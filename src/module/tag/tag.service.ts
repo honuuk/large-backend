@@ -1,26 +1,29 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTagDto } from './dto/create-tag.dto';
 import { UpdateTagDto } from './dto/update-tag.dto';
+import { TagRepository } from './tag.repository';
 
 @Injectable()
 export class TagService {
+  constructor(private tagRepository: TagRepository) {}
+
   create(createTagDto: CreateTagDto) {
-    return 'This action adds a new tag';
+    return this.tagRepository.create(createTagDto);
   }
 
-  findAll() {
-    return `This action returns all tag`;
+  getAll() {
+    return this.tagRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} tag`;
+  getById(id: number) {
+    return this.tagRepository.findByPk(id);
   }
 
   update(id: number, updateTagDto: UpdateTagDto) {
-    return `This action updates a #${id} tag`;
+    return this.tagRepository.update(id, updateTagDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} tag`;
+  delete(id: number) {
+    return this.tagRepository.delete(id);
   }
 }
