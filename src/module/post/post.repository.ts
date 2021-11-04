@@ -11,4 +11,11 @@ export class PostRepository extends BaseRepository<PostEntity, Post> {
   constructor(@InjectRepository(PostEntity) private postRepository: Repository<PostEntity>) {
     super(postRepository);
   }
+
+  async findAllWithUser() {
+    const posts = await this.postRepository.find({
+      relations: ['user'],
+    });
+    return posts.map((post) => post.toModel());
+  }
 }

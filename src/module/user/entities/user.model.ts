@@ -8,15 +8,17 @@ export class User implements IModel, IUser {
   private _name: string;
   private _password: string;
   private _salt: string;
+  private _logoImageSrc?: string;
 
   private _posts?: Post[];
 
-  constructor({ id, username, name, password, salt, posts }: IUser) {
+  constructor({ id, username, name, password, salt, logoImageSrc, posts }: IUser) {
     this._id = id;
     this._username = username;
     this._name = name;
     this._password = password;
     this._salt = salt;
+    this._logoImageSrc = logoImageSrc;
 
     this._posts = posts;
   }
@@ -61,6 +63,14 @@ export class User implements IModel, IUser {
     this._salt = salt;
   }
 
+  public get logoImageSrc(): string | undefined {
+    return this._logoImageSrc;
+  }
+
+  public set logoImageSrc(logoImageSrc: string | undefined) {
+    this._logoImageSrc = logoImageSrc;
+  }
+
   public get posts(): Post[] | undefined {
     return this._posts;
   }
@@ -76,6 +86,8 @@ export class User implements IModel, IUser {
       name: this.name,
       password: this.password,
       salt: this.salt,
+      logoImageSrc: this.logoImageSrc,
+      posts: this.posts,
     };
   }
 }

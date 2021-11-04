@@ -5,6 +5,7 @@ import { IPost } from '../types/post';
 
 export class Post implements IModel, IPost {
   private _id: number;
+  private _createdAt: Date;
   private _title: string;
   private _content: string;
   private _userId: number;
@@ -12,8 +13,9 @@ export class Post implements IModel, IPost {
   private _user?: User;
   private _tag?: Tag;
 
-  constructor({ id, title, content, userId, user, tag }: IPost) {
+  constructor({ id, createdAt, title, content, userId, user, tag }: IPost) {
     this._id = id;
+    this._createdAt = createdAt;
     this._title = title;
     this._content = content;
     this._userId = userId;
@@ -28,6 +30,14 @@ export class Post implements IModel, IPost {
 
   public set id(id: number) {
     this._id = id;
+  }
+
+  public get createdAt(): Date {
+    return this._createdAt;
+  }
+
+  public set createdAt(createdAt: Date) {
+    this._createdAt = createdAt;
   }
 
   public get title(): string {
@@ -73,6 +83,7 @@ export class Post implements IModel, IPost {
   toJSON() {
     return {
       id: this.id,
+      createdAt: this.createdAt,
       title: this.title,
       content: this.content,
       userId: this.userId,

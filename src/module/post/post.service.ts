@@ -12,7 +12,7 @@ export class PostService {
   }
 
   getAll() {
-    return this.postRepository.findAll();
+    return this.postRepository.findAllWithUser();
   }
 
   getById(id: number) {

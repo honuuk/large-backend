@@ -19,6 +19,9 @@ export class UserEntity extends BaseEntity implements IEntity<User> {
   @Column()
   salt: string;
 
+  @Column({ nullable: true })
+  logoImageSrc?: string;
+
   @OneToMany(() => PostEntity, (postEntity) => postEntity.user)
   posts?: PostEntity[];
 
